@@ -505,9 +505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bdf90ef9756f34f9f544be7bfc62c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridLength: 10
-  gridWidth: 10
+  gridRow: 10
+  gridColumn: 10
   cellSize: 1
+  wall: {fileID: 665098174108244785, guid: bd197e7bcceb79f46af26f85b8f6b829, type: 3}
 --- !u!4 &1982528697
 Transform:
   m_ObjectHideFlags: 0

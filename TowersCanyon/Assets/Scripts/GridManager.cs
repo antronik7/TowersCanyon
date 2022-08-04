@@ -2,16 +2,25 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public enum CellContent
+    {
+        Empty,
+        Wall,
+        Tower
+    }
+
     public static GridManager instance = null;
 
     [SerializeField]
-    private int gridLength = 0;
+    private int gridRow = 0;
     [SerializeField]
-    private int gridWidth = 0;
+    private int gridColumn = 0;
     [SerializeField]
     private float cellSize = 0f;
+    [SerializeField]
+    private GameObject wall;
 
-    private bool[,] grid;
+    private CellContent[,] grid;
     private Vector3 gridOriginPosition;
 
     //Awake is always called before any Start functions
@@ -27,6 +36,7 @@ public class GridManager : MonoBehaviour
             Destroy(gameObject);
 
         InitializeGrid();
+        GenerateLevel();
     }
 
     // Start is called before the first frame update
@@ -44,8 +54,23 @@ public class GridManager : MonoBehaviour
     private void InitializeGrid()
     {
         float halfCellSize = cellSize / 2f;
-        grid = new bool[gridLength, gridWidth];
-        gridOriginPosition = transform.position + (Vector3.left * (gridLength / 2f)) + (Vector3.forward * (gridLength / 2f)) + (Vector3.right * halfCellSize) + (Vector3.back * halfCellSize);
+        grid = new CellContent[gridRow, gridColumn];
+        gridOriginPosition = transform.position + (Vector3.left * (gridRow / 2f)) + (Vector3.forward * (gridRow / 2f)) + (Vector3.right * halfCellSize) + (Vector3.back * halfCellSize);
+    }
+
+    private void GenerateLevel()
+    {
+        grid[0, 0] = CellContent.Wall;
+        grid[2, 6] = CellContent.Wall;
+
+        for (int i = 0; i < gridRow; ++i)
+        {
+            for (int j = 0; j < gridColumn; j++)
+            {
+                if (grid[i, j] == CellContent.Wall)
+                    Instantiate(wall, GetCellPosition(i, j), Quaternion.identity);
+            }
+        }
     }
 
     public Vector3 ConvertToGridPosition(Vector3 position)
@@ -63,5 +88,10 @@ public class GridManager : MonoBehaviour
         gridNumber *= numberSign;
 
         return gridNumber;
+    }
+
+    public Vector3 GetCellPosition(int row, int column)
+    {
+        return gridOriginPosition + (Vector3.right * row) + (Vector3.back * column);
     }
 }
