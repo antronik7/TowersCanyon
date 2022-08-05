@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class GridManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject wall;
 
+    private NavMeshSurface navMeshSurface;
+
     private CellContent[,] grid;
     private Vector3 gridOriginPosition;
 
@@ -34,6 +37,8 @@ public class GridManager : MonoBehaviour
         else if (instance != this)
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);
+
+        navMeshSurface = GetComponent<NavMeshSurface>();
 
         InitializeGrid();
         GenerateLevel();
@@ -61,6 +66,32 @@ public class GridManager : MonoBehaviour
     private void GenerateLevel()
     {
         grid[0, 0] = CellContent.Wall;
+        grid[0, 1] = CellContent.Wall;
+        grid[0, 2] = CellContent.Wall;
+        grid[1, 0] = CellContent.Wall;
+        grid[1, 1] = CellContent.Wall;
+
+        grid[0, 7] = CellContent.Wall;
+        grid[0, 8] = CellContent.Wall;
+        grid[0, 9] = CellContent.Wall;
+        grid[1, 8] = CellContent.Wall;
+        grid[1, 9] = CellContent.Wall;
+
+        grid[8, 0] = CellContent.Wall;
+        grid[8, 1] = CellContent.Wall;
+        grid[9, 0] = CellContent.Wall;
+        grid[9, 1] = CellContent.Wall;
+        grid[9, 2] = CellContent.Wall;
+
+        grid[8, 8] = CellContent.Wall;
+        grid[8, 9] = CellContent.Wall;
+        grid[9, 7] = CellContent.Wall;
+        grid[9, 8] = CellContent.Wall;
+        grid[9, 9] = CellContent.Wall;
+
+        grid[2, 3] = CellContent.Wall;
+        grid[2, 4] = CellContent.Wall;
+        grid[2, 5] = CellContent.Wall;
         grid[2, 6] = CellContent.Wall;
 
         for (int i = 0; i < gridRow; ++i)
@@ -71,6 +102,8 @@ public class GridManager : MonoBehaviour
                     Instantiate(wall, GetCellPosition(i, j), Quaternion.identity);
             }
         }
+
+        navMeshSurface.BuildNavMesh();
     }
 
     public Vector3 ConvertToGridPosition(Vector3 position)
@@ -92,6 +125,6 @@ public class GridManager : MonoBehaviour
 
     public Vector3 GetCellPosition(int row, int column)
     {
-        return gridOriginPosition + (Vector3.right * row) + (Vector3.back * column);
+        return gridOriginPosition + (Vector3.back * row) + (Vector3.right * column);
     }
 }
