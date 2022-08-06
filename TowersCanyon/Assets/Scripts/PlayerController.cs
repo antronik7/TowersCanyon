@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private Tower testTower;
+    [SerializeField]
+    private LayerMask layerMask;
 
     private Tower towerGhost;
 
@@ -28,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     private void MoveTowerGhost()
     {
+        if (towerGhost == null)//temp for testing...
+            return;
+
         towerGhost.transform.position = GridManager.instance.ConvertToGridPosition(GetMouseCastPosition());
     }
 
@@ -36,7 +41,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             return hit.point;
 
         return Vector3.zero;
@@ -51,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private void PlaceTower()
     {
         towerGhost.MakeTransparent(false);
-        SpawnTowerGhost();
+        towerGhost = null;//temp for testing...
+        //SpawnTowerGhost();
     }
 }

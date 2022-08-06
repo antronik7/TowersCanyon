@@ -8,6 +8,8 @@ public class Tower : MonoBehaviour
     [SerializeField]
     private float attackRange;
     [SerializeField]
+    private int projectileDamage;
+    [SerializeField]
     private float projectileSpeed;
 
     [SerializeField]
@@ -70,8 +72,12 @@ public class Tower : MonoBehaviour
 
     private void SpawnProjectile()
     {
+        if (GetClosestEnemy() == null)//temp for testing...
+            return;
+
         GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity) as GameObject;
-        newProectile.GetComponent<Projectile>().Launch(enemyInRange[0].transform, projectileSpeed);
+        newProectile.GetComponent<Projectile>().Launch(GetClosestEnemy(), projectileSpeed, projectileDamage);
+        attackSpeedTimer = attackSpeed;
     }
 
     public void MakeTransparent(bool transparent)
@@ -88,5 +94,25 @@ public class Tower : MonoBehaviour
     private void SetAttackRange()
     {
         attackRangeCollider.radius = attackRange;
+    }
+
+    private Enemy GetClosestEnemy()
+    {
+        Enemy closestEnemy = enemyInRange[0];
+        float closestDistance = Mathf.Infinity;
+        foreach (Enemy enemy in enemyInRange)
+        {
+            if (enemy == null)//temp for testing...
+                continue;
+
+            float enemyDistance = (transform.position - enemy.transform.position).sqrMagnitude;
+            if (enemyDistance < closestDistance)
+            {
+                closestEnemy = enemy;
+                closestDistance = enemyDistance;
+            }
+        }
+
+        return closestEnemy;
     }
 }

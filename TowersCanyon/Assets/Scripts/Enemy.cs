@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    private float healthPoint;
+
     private NavMeshAgent navMeshAgent;
 
     //Awake is always called before any Start functions
@@ -21,5 +24,17 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ReceiveDamage(int amount)
+    {
+        healthPoint -= amount;
+        if (healthPoint < 1)
+            Kill();
+    }
+
+    public void Kill()
+    {
+        Destroy(gameObject);
     }
 }

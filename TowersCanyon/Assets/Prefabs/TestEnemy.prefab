@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5112196004014659970}
   - component: {fileID: 5112196004014659972}
   - component: {fileID: 5112196004014659973}
+  - component: {fileID: 1986978413225714683}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eef65d32b00b0746bb58830a89ebe06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPoint: 3
 --- !u!195 &5112196004014659973
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -68,6 +70,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &1986978413225714683
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5112196004014659971}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.125
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &5112196004215135703
 GameObject:
   m_ObjectHideFlags: 0
