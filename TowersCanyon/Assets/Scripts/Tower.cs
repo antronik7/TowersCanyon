@@ -64,9 +64,14 @@ public class Tower : MonoBehaviour
         if (attackSpeedTimer <= 0f)
         {
             if (enemyInRange.Count > 0)
+            {
                 SpawnProjectile();
+                attackSpeedTimer = attackSpeed;
+            }
             else
+            {
                 attackSpeedTimer = 0f;
+            }
         }
     }
 
@@ -77,7 +82,6 @@ public class Tower : MonoBehaviour
 
         GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity) as GameObject;
         newProectile.GetComponent<Projectile>().Launch(GetClosestEnemy(), projectileSpeed, projectileDamage);
-        attackSpeedTimer = attackSpeed;
     }
 
     public void MakeTransparent(bool transparent)
