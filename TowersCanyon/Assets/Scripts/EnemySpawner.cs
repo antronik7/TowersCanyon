@@ -12,12 +12,14 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyToSpawn;
 
     private float spawnTimer = 0;
-    private float numberEnemyLeft;
+    private int numberEnemyLeft;
+    private Enemy[] enemyPool;
 
     //Awake is always called before any Start functions
     void Awake()
     {
-        numberEnemyLeft = numberToSpawn;
+        ResetSpawner();
+        CreateEnemyPool();
     }
 
     // Start is called before the first frame update
@@ -52,7 +54,30 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+        enemyPool[numberToSpawn - numberEnemyLeft].Spawn(transform.position);
         --numberEnemyLeft;
+    }
+
+    private void CreateEnemyPool()
+    {
+        enemyPool = new Enemy[numberToSpawn];
+
+        for (int i = 0; i < numberToSpawn; ++i)
+        {
+            GameObject newEnemy = Instantiate(enemyToSpawn, new Vector3(-1000f, -1000f, -1000f), Quaternion.identity);
+            enemyPool[i] = newEnemy.GetComponent<Enemy>();
+        }
+    }
+
+    public void ResetSpawner()
+    {
+        numberEnemyLeft = numberToSpawn;
+        spawnTimer = 0f;
+        gameObject.SetActive(false);
+    }
+
+    public void Activate()
+    {
+        gameObject.SetActive(true);
     }
 }

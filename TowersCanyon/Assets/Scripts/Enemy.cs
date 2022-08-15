@@ -17,13 +17,21 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent.SetDestination(Vector3.zero);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Spawn(Vector3 spawnPosition)
+    {
+        transform.position = spawnPosition;
+        navMeshAgent.enabled = true;
+        navMeshAgent.isStopped = false;
+        navMeshAgent.SetDestination(Vector3.zero);
     }
 
     public void ReceiveDamage(int amount)
@@ -35,6 +43,8 @@ public class Enemy : MonoBehaviour
 
     public void Kill()
     {
-        Destroy(gameObject);
+        transform.position = new Vector3(-1000f, -1000f, -1000f);
+        navMeshAgent.isStopped = true;
+        navMeshAgent.enabled = false;
     }
 }

@@ -77,10 +77,7 @@ public class Tower : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        if (GetClosestEnemy() == null)//temp for testing...
-            return;
-
-        GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity) as GameObject;
+        GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity);
         newProectile.GetComponent<Projectile>().Launch(GetClosestEnemy(), projectileSpeed, projectileDamage);
     }
 
@@ -106,9 +103,6 @@ public class Tower : MonoBehaviour
         float closestDistance = Mathf.Infinity;
         foreach (Enemy enemy in enemyInRange)
         {
-            if (enemy == null)//temp for testing...
-                continue;
-
             float enemyDistance = (transform.position - enemy.transform.position).sqrMagnitude;
             if (enemyDistance < closestDistance)
             {

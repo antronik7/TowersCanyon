@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnTowerGhost();
+        Activate();
     }
 
     // Update is called once per frame
@@ -56,7 +56,18 @@ public class PlayerController : MonoBehaviour
     private void PlaceTower()
     {
         towerGhost.MakeTransparent(false);
-        towerGhost = null;//temp for testing...
-        //SpawnTowerGhost();
+        SpawnTowerGhost();
+    }
+
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+        SpawnTowerGhost();
+    }
+
+    public void Deactivate()
+    {
+        Destroy(towerGhost.gameObject);
+        gameObject.SetActive(false);
     }
 }
