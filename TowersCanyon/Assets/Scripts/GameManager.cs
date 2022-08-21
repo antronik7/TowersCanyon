@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PlayerController player;
     [SerializeField]
+    private int currentGold;
+    [SerializeField]
+    private int goldAfterRound;
+    [SerializeField]
     private EnemySpawner[] enemySpawners;
 
     private int currentRound = 1;
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
 
         player.Activate();
 
+        AddGold(goldAfterRound);
         ++currentRound;
         inPlacingPhase = true;
     }
@@ -73,5 +78,19 @@ public class GameManager : MonoBehaviour
 
         if (currentActiveSpawner < 1)
             EndRound();
+    }
+
+    public void AddGold(int goldValue)
+    {
+        currentGold += goldValue;
+    }
+
+    public bool SpendGold(int goldValue)
+    {
+        if (goldValue > currentGold)
+            return false;
+
+        currentGold -= goldValue;
+        return true;
     }
 }

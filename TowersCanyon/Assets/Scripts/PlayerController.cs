@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
 
     private void PlaceTower()
     {
+        if (GameManager.instance.SpendGold(testTower.GetPrice()) == false)
+            return;
+
         towerGhost.MakeTransparent(false);
         SpawnTowerGhost();
     }

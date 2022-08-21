@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class Tower : MonoBehaviour
 {
     [SerializeField]
+    private int price;
+    [SerializeField]
     private float attackSpeed;
     [SerializeField]
     private float attackRange;
@@ -112,5 +114,10 @@ public class Tower : MonoBehaviour
         }
 
         return closestEnemy;
+    }
+
+    public int GetPrice()
+    {
+        return price;
     }
 }

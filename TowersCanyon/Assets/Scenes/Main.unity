@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1444024480}
+  currentGold: 10
+  goldAfterRound: 10
   enemySpawners:
   - {fileID: 488503015}
   - {fileID: 1881514093}
