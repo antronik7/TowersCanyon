@@ -80,4 +80,9 @@ public class EnemySpawner : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+
+    public int GetNbrEnemiesInSpawner()
+    {
+        return numberToSpawn;
+    }
 }

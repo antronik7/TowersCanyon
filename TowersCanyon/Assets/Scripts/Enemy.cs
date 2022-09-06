@@ -46,5 +46,6 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(-1000f, -1000f, -1000f);
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
+        GameManager.instance.RemoveEnemiesFromTotal(1);
     }
 }

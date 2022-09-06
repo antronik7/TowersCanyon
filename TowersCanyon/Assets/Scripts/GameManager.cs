@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     private EnemySpawner[] enemySpawners;
 
     private int currentRound = 1;
+    private int currentNbrEnemies = 0;
     private bool inPlacingPhase = true;
-    private int currentActiveSpawner = 0;
 
     // Use this for initialization
     void Awake()
@@ -49,12 +49,12 @@ public class GameManager : MonoBehaviour
     {
         foreach (EnemySpawner spawner in enemySpawners)
         {
+            currentNbrEnemies += spawner.GetNbrEnemiesInSpawner();
             spawner.Activate();
         }
 
         player.Deactivate();
 
-        currentActiveSpawner = enemySpawners.Length;
         inPlacingPhase = false;
     }
 
@@ -72,11 +72,11 @@ public class GameManager : MonoBehaviour
         inPlacingPhase = true;
     }
 
-    public void EnemySpawnerDone()
+    public void RemoveEnemiesFromTotal(int quantity)
     {
-        --currentActiveSpawner;
+        currentNbrEnemies -= quantity;
 
-        if (currentActiveSpawner < 1)
+        if (currentNbrEnemies < 1)
             EndRound();
     }
 
