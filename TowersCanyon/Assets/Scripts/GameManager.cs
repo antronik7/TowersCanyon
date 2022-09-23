@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     private int currentRound = 1;
     private int currentNbrEnemies = 0;
     private bool inPlacingPhase = true;
+    private List<Tower> towers = new List<Tower>();
 
     // Use this for initialization
     void Awake()
@@ -92,5 +94,15 @@ public class GameManager : MonoBehaviour
 
         currentGold -= goldValue;
         return true;
+    }
+
+    public void AddTower(Tower tower)
+    {
+        towers.Add(tower);
+    }
+
+    public void RemoveTower(Tower tower)
+    {
+        towers.Remove(tower);
     }
 }
