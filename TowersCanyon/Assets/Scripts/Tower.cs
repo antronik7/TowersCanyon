@@ -6,6 +6,8 @@ public class Tower : MonoBehaviour
     [SerializeField]
     private int price;
     [SerializeField]
+    private int healthPoints;
+    [SerializeField]
     private float attackSpeed;
     [SerializeField]
     private float attackRange;
@@ -116,8 +118,21 @@ public class Tower : MonoBehaviour
         return closestEnemy;
     }
 
+    private void Kill()
+    {
+        Destroy(gameObject);
+    }
+
     public int GetPrice()
     {
         return price;
+    }
+
+    public void Damage(int damage)
+    {
+        healthPoints -= damage;
+
+        if (healthPoints <= 0)
+            Kill();
     }
 }

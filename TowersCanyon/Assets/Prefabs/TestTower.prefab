@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  healthPoints: 10
   attackSpeed: 0.25
   attackRange: 4
   projectileDamage: 1
