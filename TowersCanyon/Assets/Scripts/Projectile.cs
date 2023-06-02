@@ -15,26 +15,34 @@ public class Projectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()//Maybe this should be late update to make sure everything was moved...
     {
-        if (target == null)//temp for testing...
-            Destroy(gameObject);
-        else
-            MoveProjectile();
+        MoveProjectile();
+        CheckForImpact();
     }
 
     private void MoveProjectile()
     {
         float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+        transform.position = Vector3.MoveTowards(transform.position, target.GetPosition(), step);
+    }
 
-        if (transform.position == target.transform.position)
+    private void CheckForImpact()
+    {
+        if (transform.position == target.GetPosition())
             DamageTarget();
     }
 
     private void DamageTarget()
     {
-        target.ReceiveDamage(damage);
+        if (target.CheckIfAlive())
+            target.ReceiveDamage(damage);
+
+        UnspawnProjectile();
+    }
+
+    private void UnspawnProjectile()
+    {
         Destroy(gameObject);
     }
 

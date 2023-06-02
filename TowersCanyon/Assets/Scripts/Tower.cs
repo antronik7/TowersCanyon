@@ -81,7 +81,7 @@ public class Tower : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity);
+        GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity);//Should be using a pool...
         newProectile.GetComponent<Projectile>().Launch(GetClosestEnemy(), projectileSpeed, projectileDamage);
     }
 
