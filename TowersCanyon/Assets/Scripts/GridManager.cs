@@ -127,4 +127,27 @@ public class GridManager : MonoBehaviour
     {
         return gridOriginPosition + (Vector3.back * row) + (Vector3.right * column);
     }
+
+    public Vector2 FindClosestTower(Vector3 position)
+    {
+        int closestRow = 0;
+        int closestColumn = 0;
+        float closestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < gridRow; ++i)
+        {
+            for (int j = 0; j < gridColumn; ++j)
+            {
+                float cellDistance = Vector3.Distance(position, GetCellPosition(i, j));
+                if (cellDistance < closestDistance)
+                {
+                    closestDistance = cellDistance;
+                    closestRow = i;
+                    closestColumn = j;
+                }
+            }
+        }
+
+        return new Vector2(closestRow, closestColumn);
+    }
 }
