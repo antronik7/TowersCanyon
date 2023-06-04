@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTimer = 0;
     private int numberEnemyLeft;
     private Enemy[] enemyPool;
+    private Vector3 targetPosition = Vector3.zero;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -54,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        enemyPool[numberToSpawn - numberEnemyLeft].Spawn(transform.position);
+        enemyPool[numberToSpawn - numberEnemyLeft].Spawn(transform.position, targetPosition);
         --numberEnemyLeft;
     }
 
@@ -69,6 +70,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private void SetTarget()
+    {
+        Vector2 towerGridPosition = GridManager.instance.GetClosestTowerPosition(transform.position);
+        targetPosition = GridManager.instance.GetCellPosition((int)towerGridPosition.x, (int)towerGridPosition.y);//Probably will create problems with float cast...
+    }
+
     public void ResetSpawner()
     {
         numberEnemyLeft = numberToSpawn;
@@ -78,6 +85,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void Activate()
     {
+        SetTarget();
         gameObject.SetActive(true);
     }
 

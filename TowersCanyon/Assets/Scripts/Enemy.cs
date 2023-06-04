@@ -29,13 +29,13 @@ public class Enemy : MonoBehaviour
             latestPosition = transform.position;
     }
 
-    public void Spawn(Vector3 spawnPosition)
+    public void Spawn(Vector3 spawnPosition, Vector3 targetPosition)
     {
         isAlive = true;
         transform.position = spawnPosition;
         navMeshAgent.enabled = true;
         navMeshAgent.isStopped = false;
-        navMeshAgent.SetDestination(Vector3.zero);
+        navMeshAgent.SetDestination(targetPosition);
         latestPosition = transform.position;
     }
 

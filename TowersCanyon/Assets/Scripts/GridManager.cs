@@ -96,7 +96,7 @@ public class GridManager : MonoBehaviour
 
         for (int i = 0; i < gridRow; ++i)
         {
-            for (int j = 0; j < gridColumn; j++)
+            for (int j = 0; j < gridColumn; ++j)
             {
                 if (grid[i, j] == CellContent.Wall)
                     Instantiate(wall, GetCellPosition(i, j), Quaternion.identity);
@@ -128,7 +128,12 @@ public class GridManager : MonoBehaviour
         return gridOriginPosition + (Vector3.back * row) + (Vector3.right * column);
     }
 
-    public Vector2 FindClosestTower(Vector3 position)
+    public Vector2 ConvertPositionToGrid(Vector3 positon)
+    {
+        return new Vector2((positon.x - (cellSize / 2f)) + gridRow / 2, (positon.y - (cellSize / 2f)) + gridColumn / 2);
+    }
+
+    public Vector2 GetClosestTowerPosition(Vector3 position)
     {
         int closestRow = 0;
         int closestColumn = 0;
@@ -138,16 +143,25 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < gridColumn; ++j)
             {
-                float cellDistance = Vector3.Distance(position, GetCellPosition(i, j));
-                if (cellDistance < closestDistance)
+                if (grid[i, j] == CellContent.Tower)
                 {
-                    closestDistance = cellDistance;
-                    closestRow = i;
-                    closestColumn = j;
+                    float cellDistance = Vector3.Distance(position, GetCellPosition(i, j));
+
+                    if (cellDistance < closestDistance)
+                    {
+                        closestDistance = cellDistance;
+                        closestRow = i;
+                        closestColumn = j;
+                    }
                 }
             }
         }
 
         return new Vector2(closestRow, closestColumn);
+    }
+
+    public void AddTower(int row, int column)
+    {
+        grid[row, column] = CellContent.Tower;
     }
 }
