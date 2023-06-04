@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.instance.SpendGold(testTower.GetPrice()) == false)
             return;
 
+        GridManager.instance.AddTower(GridManager.instance.ConvertPositionToGrid(towerGhost.transform.position));
         GameManager.instance.AddTower(towerGhost);
         towerGhost.MakeTransparent(false);
         SpawnTowerGhost();

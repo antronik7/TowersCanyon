@@ -130,7 +130,7 @@ public class GridManager : MonoBehaviour
 
     public Vector2 ConvertPositionToGrid(Vector3 positon)
     {
-        return new Vector2((positon.x - (cellSize / 2f)) + gridRow / 2, (positon.y - (cellSize / 2f)) + gridColumn / 2);
+        return new Vector2(((positon.z * -1f) - (cellSize / 2f)) + gridRow / 2, (positon.x - (cellSize / 2f)) + gridColumn / 2);
     }
 
     public Vector2 GetClosestTowerPosition(Vector3 position)
@@ -160,8 +160,8 @@ public class GridManager : MonoBehaviour
         return new Vector2(closestRow, closestColumn);
     }
 
-    public void AddTower(int row, int column)
+    public void AddTower(Vector2 gridPosition)
     {
-        grid[row, column] = CellContent.Tower;
+        grid[(int)gridPosition.x, (int)gridPosition.y] = CellContent.Tower;//Int casting may cause some errors...
     }
 }
