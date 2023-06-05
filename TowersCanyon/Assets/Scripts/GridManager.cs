@@ -164,4 +164,12 @@ public class GridManager : MonoBehaviour
     {
         grid[(int)gridPosition.x, (int)gridPosition.y] = CellContent.Tower;//Int casting may cause some errors...
     }
+
+    public bool TestPositionOnGrid(Vector2 gridPosition)
+    {
+        if (gridPosition.x < 0f || gridPosition.x > (gridRow - 1) || gridPosition.y < 0f || gridPosition.x > (gridColumn - 1))
+            return false;
+
+        return true;
+    }
 }

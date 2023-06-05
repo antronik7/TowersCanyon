@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             return hit.point;
 
-        return Vector3.zero;
+        return new Vector3(-1000f, -1000f, -1000f);
     }
 
     private void SpawnTowerGhost()
@@ -54,11 +54,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void PlaceTower()
-    {
+    {        
+        Vector2 gridPosition = GridManager.instance.ConvertPositionToGrid(towerGhost.transform.position);
+
+        if (GridManager.instance.TestPositionOnGrid(gridPosition) == false)
+            return;
+
         if (GameManager.instance.SpendGold(testTower.GetPrice()) == false)
             return;
 
-        GridManager.instance.AddTower(GridManager.instance.ConvertPositionToGrid(towerGhost.transform.position));
+        GridManager.instance.AddTower(gridPosition);
         GameManager.instance.AddTower(towerGhost);
         towerGhost.MakeTransparent(false);
         SpawnTowerGhost();
