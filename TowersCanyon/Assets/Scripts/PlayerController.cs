@@ -42,7 +42,10 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-            return hit.point;
+        {
+            if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                return hit.point;
+        }
 
         return new Vector3(-1000f, -1000f, -1000f);
     }
