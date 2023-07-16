@@ -57,10 +57,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void PlaceTower()
-    {        
+    {
         Vector2 gridPosition = GridManager.instance.ConvertPositionToGrid(towerGhost.transform.position);
 
-        if (GridManager.instance.TestPositionOnGrid(gridPosition) == false)
+        if (GridManager.instance.TestPositionOnGrid(gridPosition) == false)//Can only check if cell is empty...
+            return;
+
+        if (GridManager.instance.CheckIfCellEmpty(gridPosition) == false)
             return;
 
         if (GameManager.instance.SpendGold(testTower.GetPrice()) == false)

@@ -172,4 +172,12 @@ public class GridManager : MonoBehaviour
 
         return true;
     }
+
+    public bool CheckIfCellEmpty(Vector2 gridPosition)
+    {
+        if (grid[(int)gridPosition.x, (int)gridPosition.y] == CellContent.Empty)//Int casting may cause some errors...
+            return true;
+
+        return false;
+    }
 }
