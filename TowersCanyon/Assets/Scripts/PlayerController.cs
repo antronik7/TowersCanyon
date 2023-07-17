@@ -33,7 +33,16 @@ public class PlayerController : MonoBehaviour
         if (towerGhost == null)//temp for testing...
             return;
 
-        towerGhost.transform.position = GridManager.instance.ConvertToGridPosition(GetMouseCastPosition());
+        Vector3 towerPosition = GridManager.instance.ConvertToGridPosition(GetMouseCastPosition());
+        Vector2 gridPosition = GridManager.instance.ConvertPositionToGrid(towerPosition);
+
+        if (GridManager.instance.TestPositionOnGrid(gridPosition) == true)
+        {
+            if (GridManager.instance.CheckIfCellEmpty(gridPosition) == false)
+                towerPosition = new Vector3(-1000f, 0f, -1000f); //Need to deactivate the tower when placing it...
+        }
+
+        towerGhost.transform.position = towerPosition;
     }
 
     private Vector3 GetMouseCastPosition()

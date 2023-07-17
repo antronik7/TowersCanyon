@@ -731,7 +731,7 @@ MonoBehaviour:
   testTower: {fileID: 8239656582845856339, guid: 092f5477505af18409c665160422286f, type: 3}
   layerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 8
 --- !u!4 &1444024481
 Transform:
   m_ObjectHideFlags: 0
