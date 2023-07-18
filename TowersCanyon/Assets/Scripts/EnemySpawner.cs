@@ -74,6 +74,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector2 towerGridPosition = GridManager.instance.GetClosestTowerPosition(transform.position);
         targetPosition = GridManager.instance.GetCellPosition((int)towerGridPosition.x, (int)towerGridPosition.y);//Probably will create problems with float cast...
+        targetPosition += (transform.position - targetPosition).normalized * 0.4f;//Small offset so the position of the spawner change the target position...
     }
 
     public void ResetSpawner()
