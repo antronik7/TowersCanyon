@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    [SerializeField]
+    private TextMeshProUGUI textGold;
     [SerializeField]
     private PlayerController player;
     [SerializeField]
@@ -32,6 +35,8 @@ public class GameManager : MonoBehaviour
 
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
+
+        textGold.text = "Gold: " + currentGold;
     }
 
     // Start is called before the first frame update
@@ -85,6 +90,8 @@ public class GameManager : MonoBehaviour
     public void AddGold(int goldValue)
     {
         currentGold += goldValue;
+
+        textGold.text = "Gold: " + currentGold;
     }
 
     public bool SpendGold(int goldValue)
@@ -93,6 +100,9 @@ public class GameManager : MonoBehaviour
             return false;
 
         currentGold -= goldValue;
+
+        textGold.text = "Gold: " + currentGold;
+
         return true;
     }
 
