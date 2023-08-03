@@ -4,10 +4,11 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    private float healthPoint;
+    private int healthPoint;
 
     private NavMeshAgent navMeshAgent;
     private bool isAlive = false;
+    private int currentHealthPoint;
     private Vector3 latestPosition;
 
     //Awake is always called before any Start functions
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
 
     public void Spawn(Vector3 spawnPosition, Vector3 targetPosition)
     {
+        currentHealthPoint = healthPoint;
         isAlive = true;
         transform.position = spawnPosition;
         navMeshAgent.enabled = true;
@@ -41,8 +43,8 @@ public class Enemy : MonoBehaviour
 
     public void ReceiveDamage(int amount)
     {
-        healthPoint -= amount;
-        if (healthPoint < 1)
+        currentHealthPoint -= amount;
+        if (currentHealthPoint < 1)
             Kill();
     }
 
