@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private int healthPoint;
+    [SerializeField]
+    private TextMeshProUGUI healthUI;
 
     private NavMeshAgent navMeshAgent;
     private bool isAlive = false;
@@ -33,6 +36,7 @@ public class Enemy : MonoBehaviour
     public void Spawn(Vector3 spawnPosition, Vector3 targetPosition)
     {
         currentHealthPoint = healthPoint;
+        healthUI.text = "" + currentHealthPoint;
         isAlive = true;
         transform.position = spawnPosition;
         navMeshAgent.enabled = true;
@@ -44,6 +48,8 @@ public class Enemy : MonoBehaviour
     public void ReceiveDamage(int amount)
     {
         currentHealthPoint -= amount;
+        healthUI.text = "" + currentHealthPoint;
+
         if (currentHealthPoint < 1)
             Kill();
     }

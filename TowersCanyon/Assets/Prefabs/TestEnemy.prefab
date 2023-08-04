@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoint: 3
+  healthUI: {fileID: 4773670360665683786}
 --- !u!195 &5112196004014659973
 NavMeshAgent:
   m_ObjectHideFlags: 0
