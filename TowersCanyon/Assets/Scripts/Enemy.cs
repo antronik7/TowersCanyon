@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
     private bool isAlive = false;
-    private int currentHealthPoint;
+    private int currentHealthPoints;
     private Vector3 latestPosition;
 
     //Awake is always called before any Start functions
@@ -35,8 +35,8 @@ public class Enemy : MonoBehaviour
 
     public void Spawn(Vector3 spawnPosition, Vector3 targetPosition)
     {
-        currentHealthPoint = healthPoint;
-        healthUI.text = "" + currentHealthPoint;
+        currentHealthPoints = healthPoint;
+        healthUI.text = "" + currentHealthPoints;
         isAlive = true;
         transform.position = spawnPosition;
         navMeshAgent.enabled = true;
@@ -47,10 +47,10 @@ public class Enemy : MonoBehaviour
 
     public void ReceiveDamage(int amount)
     {
-        currentHealthPoint -= amount;
-        healthUI.text = "" + currentHealthPoint;
+        currentHealthPoints -= amount;
+        healthUI.text = "" + currentHealthPoints;
 
-        if (currentHealthPoint < 1)
+        if (currentHealthPoints < 1)
             Kill();
     }
 

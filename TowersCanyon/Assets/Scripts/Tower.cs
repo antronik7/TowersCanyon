@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class Tower : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI healthUI;
     [SerializeField]
     private int price;
     [SerializeField]
@@ -25,6 +27,7 @@ public class Tower : MonoBehaviour
 
     private SphereCollider attackRangeCollider;
 
+    private int currentHealthPoints;
     private float attackSpeedTimer = 0;
     private List<Enemy> enemyInRange = new List<Enemy>();
 
@@ -83,6 +86,14 @@ public class Tower : MonoBehaviour
     {
         GameObject newProectile = Instantiate(projectile, projectileSpawnPosition.position, Quaternion.identity);//Should be using a pool...
         newProectile.GetComponent<Projectile>().Launch(GetClosestEnemy(), projectileSpeed, projectileDamage);
+    }
+
+    public void Place()
+    {
+        MakeTransparent(false);
+        healthUI.gameObject.SetActive(true);
+        currentHealthPoints = healthPoints;
+        healthUI.text = "" + currentHealthPoints;
     }
 
     public void MakeTransparent(bool transparent)

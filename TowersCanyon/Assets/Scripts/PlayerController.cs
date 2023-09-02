@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         GridManager.instance.AddTower(gridPosition);
         GameManager.instance.AddTower(towerGhost);
-        towerGhost.MakeTransparent(false);
+        towerGhost.Place();
         SpawnTowerGhost();
     }
 
